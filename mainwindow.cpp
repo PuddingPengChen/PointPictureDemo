@@ -54,7 +54,13 @@ void MainWindow::on_btnOk_clicked()
 
 void MainWindow::on_btnLoad_clicked()
 {
-    file = QFileDialog::getOpenFileName(this,tr("Open"),".",tr("Image (*.png)"));
+   file = QFileDialog::getOpenFileName(this,tr("Open"),".",tr("Image (*.png *jpg *.jpeg)"));
+    if((QFileInfo(file).suffix()!="png")||((QFileInfo(file).suffix()!="PNG")))
+    {
+        QImage ds(file);
+        ds.save("temp.png","PNG",100);
+        file = "temp.png";
+    }
     QImage d(file);
     w = d.width();
     h = d.height();
